@@ -37,10 +37,12 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const { name, price } = req.body;
 
-  if (!name || typeof price !== 'number') {
-    return res
-      .status(400)
-      .json({ message: 'Name and numeric price are required' });
+  if (!name) {
+    return res.status(400).json({ message: 'Name is required' });
+  }
+
+  if (typeof price !== 'number') {
+    return res.status(400).json({ message: 'Price must be a number' });
   }
 
   const newItem = { id: nextId++, name, price };
